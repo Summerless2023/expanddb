@@ -7,3 +7,4 @@ edition = "2021"
 
 [dependencies]
 rust-ini = "0.19"
+lazy_static = "1.4.0"
