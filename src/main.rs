@@ -1,7 +1,12 @@
 pub mod file;
 pub use file::handler;
-use file::FileHandler;
+use ini::Ini;
 fn main() {
-    let h: file::CommonFileHandler = handler::CommonFileHandler {};
-    h.create_file("123".to_string());
+    let conf = Ini::load_from_file("config.ini").unwrap();
+    for (sec, prop) in &conf {
+        println!("Section: {:?}", sec);
+        for (key, value) in prop.iter() {
+            println!("{:?}:{:?}", key, value);
+        }
+    }
 }
