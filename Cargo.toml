@@ -8,3 +8,5 @@ edition = "2021"
 [dependencies]
 rust-ini = "0.19"
 lazy_static = "1.4.0"
+log = "0.4.8"
+log4rs = "0.10.0"

@@ -1,8 +1,8 @@
 use ini::Ini;
 use std::collections::HashMap;
 
-pub fn get_config() -> HashMap<String, String> {
-    let conf = Ini::load_from_file("config.ini").unwrap();
+pub fn init_config_map() -> HashMap<String, String> {
+    let conf: Ini = Ini::load_from_file("config.ini").unwrap();
     let mut map: HashMap<String, String> = HashMap::new();
     map.clear();
     for (_sec, prop) in &conf {
@@ -15,7 +15,7 @@ pub fn get_config() -> HashMap<String, String> {
 
 lazy_static! {
     pub static ref MAP: HashMap<String, String> = {
-        let map = get_config();
+        let map = init_config_map();
         map
     };
 }
