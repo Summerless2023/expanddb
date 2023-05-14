@@ -12,5 +12,7 @@ fn main() {
     log4rs::init_file("src/config/log4rs.yaml", Default::default()).unwrap();
     init_config_map();
     print!("{:?}", *MAP);
-    warn!("-----");
+    for i in 1..100000 {
+        warn!("-----  {}", i);
+    }
 }
