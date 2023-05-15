@@ -1,4 +1,4 @@
 /target
 .vscode/
 /log/
-/src/data/*
+src/data/*
