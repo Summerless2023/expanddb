@@ -1,7 +1,7 @@
 use std::fs::File;
 use std::io::{Error, Write};
 pub trait FileHandler {
-    fn create_file(&self, _filename: String) -> Result<(), Error>;
+    fn create_file(&self, _filename: String) -> File;
     fn drop_file(&self, _filename: String) -> Result<(), Error>;
     fn read_file(&self, _filename: String) -> Result<(), Error>;
     fn write_file(&self, _filename: String, _is_create: bool) -> Result<(), Error>;
@@ -11,16 +11,17 @@ pub trait FileHandler {
 pub struct CommonFileHandler {}
 
 impl FileHandler for CommonFileHandler {
-    fn create_file(&self, _filename: String) -> Result<(), Error> {
-        let mut buffer = File::create(_filename)?;
-
-        buffer.write(b"some bytes")?;
-
-        buffer.write_all(b"more bytes")?;
-
-        buffer.flush()?;
+    fn create_file(&self, _filename: String) -> File {
+        let mut file = match File::create(&_filename) {
+            Err(why) => {
+                panic!("create file {} error", _filename)
+            }
+            Ok(file) => file,
+        };
         println!("create file");
-        Ok(())
+        // self.file = file,
+        // true
+        file
     }
     fn drop_file(&self, _filename: String) -> Result<(), Error> {
         println!("drop file");
@@ -32,6 +33,11 @@ impl FileHandler for CommonFileHandler {
     }
     fn write_file(&self, _filename: String, _is_create: bool) -> Result<(), Error> {
         println!("write file");
+        // file.write(b"some bytes");
+
+        // file.write_all(b"more bytes");
+
+        // file.flush();
         Ok(())
     }
 }
