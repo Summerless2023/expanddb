@@ -15,15 +15,16 @@ extern crate lazy_static;
 fn main() {
     log4rs::init_file("src/config/log4rs.yaml", Default::default()).unwrap();
     init_config_map();
-
-    let key: Key = Key { data: 1 };
-    let value: Value = Value { data: 2 };
     let relation: Relation = Relation {
         table_space_id: 1,
         data_file_path: "t1".to_string(),
         file_handler: CommonFileHandler {},
     };
-    relation.insert(key, value);
+    for i in 1..100 {
+        let key: Key = Key { data: i };
+        let value: Value = Value { data: i + 1 };
+        relation.insert(key, value);
+    }
 
     // let mut file_name = "src/data/".to_string();
     // file_name += &relation.data_file_path;

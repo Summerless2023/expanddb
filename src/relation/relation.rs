@@ -13,9 +13,11 @@ pub struct Relation {
 
 impl Relation {
     pub fn insert(&self, key: Key, value: Value) {
-        let mut file: File = self
-            .file_handler
-            .create_file(self.data_file_path.to_string());
+        let mut file = self.file_handler.open_file(self.data_file_path.to_string());
+
+        // let mut file: File = self
+        //     .file_handler
+        //     .create_file(self.data_file_path.to_string());
         file.write_all(key.data.to_string().as_bytes()).unwrap();
         file.write_all(value.data.to_string().as_bytes()).unwrap();
     }

@@ -1,10 +1,11 @@
 use std::fs::File;
-use std::io::Error;
+use std::io::{self, Error};
 pub trait FileHandler {
     fn create_file(&self, _filename: String) -> File;
     fn drop_file(&self, _filename: String) -> Result<(), Error>;
     fn read_file(&self, _filename: String) -> Result<(), Error>;
     fn write_file(&self, _filename: String, _is_create: bool) -> Result<(), Error>;
+    fn open_file(&self, _filename: String) -> io::Result<File>;
 }
 
 #[derive(Debug)]
@@ -39,5 +40,9 @@ impl FileHandler for CommonFileHandler {
 
         // file.flush();
         Ok(())
+    }
+    fn open_file(&self, _filename: String) -> io::Result<File> {
+        let mut file = File::open(&_filename);
+        file
     }
 }
