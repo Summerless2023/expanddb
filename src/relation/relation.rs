@@ -16,7 +16,7 @@ impl Relation {
         let mut file: File = self
             .file_handler
             .create_file(self.data_file_path.to_string());
-        file.write_all(key.data.to_string().as_bytes());
-        file.write_all(value.data.to_string().as_bytes());
+        file.write_all(key.data.to_string().as_bytes()).unwrap();
+        file.write_all(value.data.to_string().as_bytes()).unwrap();
     }
 }

@@ -1,5 +1,5 @@
 use std::fs::File;
-use std::io::{Error, Write};
+use std::io::Error;
 pub trait FileHandler {
     fn create_file(&self, _filename: String) -> File;
     fn drop_file(&self, _filename: String) -> Result<(), Error>;
@@ -12,8 +12,8 @@ pub struct CommonFileHandler {}
 
 impl FileHandler for CommonFileHandler {
     fn create_file(&self, _filename: String) -> File {
-        let mut file = match File::create(&_filename) {
-            Err(why) => {
+        let file = match File::create(&_filename) {
+            Err(_why) => {
                 panic!("create file {} error", _filename)
             }
             Ok(file) => file,

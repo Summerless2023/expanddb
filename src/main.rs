@@ -3,10 +3,8 @@ pub mod file;
 pub mod kv;
 pub mod relation;
 
-use std::fs::File;
-
 use config::config::*;
-use file::{CommonFileHandler, FileHandler};
+use file::CommonFileHandler;
 use kv::{Key, Value};
 use log4rs;
 use relation::Relation;
@@ -17,11 +15,10 @@ extern crate lazy_static;
 fn main() {
     log4rs::init_file("src/config/log4rs.yaml", Default::default()).unwrap();
     init_config_map();
-    let data_handler: &dyn FileHandler = &CommonFileHandler {};
 
     let key: Key = Key { data: 1 };
     let value: Value = Value { data: 2 };
-    let mut relation: Relation = Relation {
+    let relation: Relation = Relation {
         table_space_id: 1,
         data_file_path: "t1".to_string(),
         file_handler: CommonFileHandler {},
