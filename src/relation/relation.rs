@@ -13,12 +13,19 @@ pub struct Relation {
 
 impl Relation {
     pub fn insert(&self, key: Key, value: Value) {
-        let mut file = self.file_handler.open_file(self.data_file_path.to_string());
-
+        let file: Result<File, std::io::Error> =
+            self.file_handler.open_file(self.data_file_path.to_string());
+        match file {
+            Ok(mut _file) => {
+                let str = format!("{} {}\n", key.data, value.data);
+                let _result = _file.write(str.as_bytes());
+            }
+            Err(e) => {
+                panic!("open file error, error reason {}", e);
+            }
+        }
         // let mut file: File = self
         //     .file_handler
         //     .create_file(self.data_file_path.to_string());
-        file.write_all(key.data.to_string().as_bytes()).unwrap();
-        file.write_all(value.data.to_string().as_bytes()).unwrap();
     }
 }

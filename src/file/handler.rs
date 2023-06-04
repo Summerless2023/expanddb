@@ -1,4 +1,5 @@
 use std::fs::File;
+use std::fs::OpenOptions;
 use std::io::{self, Error};
 pub trait FileHandler {
     fn create_file(&self, _filename: String) -> File;
@@ -42,7 +43,12 @@ impl FileHandler for CommonFileHandler {
         Ok(())
     }
     fn open_file(&self, _filename: String) -> io::Result<File> {
-        let mut file = File::open(&_filename);
+        let file = OpenOptions::new()
+            .read(true)
+            .write(true)
+            .create(true)
+            .append(true)
+            .open(&_filename);
         file
     }
 }
